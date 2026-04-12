@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Rental Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13l1.5-4.5A2 2 0 016.4 7h11.2a2 2 0 011.9 1.5L21 13M3 13v5a1 1 0 001 1h1a1 1 0 001-1v-1h12v1a1 1 0 001 1h1a1 1 0 001-1v-5M3 13h18M7 17h.01M17 17h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Car Rental Tracker</span>
+      </div>
+      <div id="currentDate" class="topbar-date"></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div id="summaryBar" class="summary-bar" style="display:none">
+      <div class="summary-card">
+        <span class="summary-label">Total Rentals</span>
+        <span class="summary-value" id="statTotal">0</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label">Active Now</span>
+        <span class="summary-value accent-amber" id="statActive">0</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label">Returned</span>
+        <span class="summary-value accent-green" id="statReturned">0</span>
+      </div>
+      <div class="summary-card highlight">
+        <span class="summary-label">Total Revenue</span>
+        <span class="summary-value" id="statRevenue">$0.00</span>
+      </div>
+    </div>
+
+    <section class="form-card">
+      <h2>New Rental</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label for="clientName">Client Name</label>
+          <input type="text" id="clientName" placeholder="Full name" />
+        </div>
+        <div class="field">
+          <label for="clientPhone">Phone</label>
+          <input type="tel" id="clientPhone" placeholder="+212 6XX XXX XXX" />
+        </div>
+        <div class="field">
+          <label for="carModel">Car Model</label>
+          <input type="text" id="carModel" placeholder="e.g. Dacia Logan" />
+        </div>
+        <div class="field">
+          <label for="plateNumber">Plate Number</label>
+          <input type="text" id="plateNumber" placeholder="e.g. 12345-A-1" />
+        </div>
+        <div class="field">
+          <label for="pickupDate">Pickup Date</label>
+          <input type="date" id="pickupDate" />
+        </div>
+        <div class="field">
+          <label for="rentalDays">Duration (days)</label>
+          <input type="number" id="rentalDays" min="1" value="3" />
+        </div>
+        <div class="field">
+          <label for="returnDate">Return Date</label>
+          <input type="text" id="returnDate" readonly placeholder="Auto-calculated" />
+        </div>
+        <div class="field">
+          <label for="pricePerDay">Price per Day ($)</label>
+          <input type="number" id="pricePerDay" min="0" step="0.01" value="50" />
+        </div>
+        <div class="field">
+          <label for="totalPrice">Total Price ($)</label>
+          <input type="text" id="totalPrice" readonly placeholder="Auto-calculated" />
+        </div>
+        <div class="field">
+          <label for="fuelLevel">Fuel Level</label>
+          <select id="fuelLevel">
+            <option value="Full">Full</option>
+            <option value="3/4">3/4</option>
+            <option value="1/2">1/2</option>
+            <option value="1/4">1/4</option>
+            <option value="Empty">Empty</option>
+          </select>
+        </div>
+        <div class="field field-full">
+          <label for="notes">Notes</label>
+          <input type="text" id="notes" placeholder="Any damage, extras, remarks..." />
+        </div>
+        <div class="field field-full">
+          <button type="button" id="addRentalBtn">+ Add Rental</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <h2>Rentals</h2>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="returned">Returned</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="rentals-table">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Car</th>
+              <th>Plate</th>
+              <th>Pickup</th>
+              <th>Return</th>
+              <th>Days</th>
+              <th>Rate</th>
+              <th>Total</th>
+              <th>Fuel</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rentalsBody"></tbody>
+        </table>
+        <div id="emptyState" class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M3 13l1.5-4.5A2 2 0 016.4 7h11.2a2 2 0 011.9 1.5L21 13M3 13v5a1 1 0 001 1h1a1 1 0 001-1v-1h12v1a1 1 0 001 1h1a1 1 0 001-1v-5M3 13h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <p>No rentals yet. Add your first one above.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
